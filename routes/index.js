@@ -2,8 +2,8 @@ var express = require('express');
 var router = express.Router();
 const stripe = require('stripe')('sk_test_51KjeyfDKE8PPQdZ15ZpsMHLZRaIyFLglTIigOqDtxqLPzKXBvYJWokgg8DnrTNQSPAh9Ak6a4WXKpelnBhR3wQvn002mn5hAKU')
 
-const YOUR_DOMAIN = 'http://localhost:3000';
-
+let YOUR_DOMAIN = '';
+let urlRead = false;
 dataBike = [
   {name: 'BIK045',  url: 'images/bike-1.jpg', price: 679, priceid: 'price_1KjfPyDKE8PPQdZ127udQcVo'},
   {name: 'ZOOK07',  url: 'images/bike-2.jpg', price: 999, priceid:'price_1KjfQoDKE8PPQdZ1pwDqK4Gs'},
@@ -17,6 +17,11 @@ dataBike = [
 router.get('/', function(req, res, next) {
   if (typeof req.session.dataCardBike === 'undefined') {
     req.session.dataCardBike = [];
+  }
+  //récuperer l'url complète une fois
+  if (urlRead === false) {
+    YOUR_DOMAIN = req.protocol + '://' + req.get('host');
+    urlRead = true;
   }
   res.render('index', {bikes: dataBike});
 });
