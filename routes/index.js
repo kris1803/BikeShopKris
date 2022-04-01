@@ -58,7 +58,6 @@ router.post('/create-checkout-session', async (req, res) => {
   for (let i = 0; i <req.session.dataCardBike.length; i++) {
     sendData.push({ price: req.session.dataCardBike[i].priceid, quantity: req.session.dataCardBike[i].qty});
   }
-  console.log(sendData);
   const session = await stripe.checkout.sessions.create({
     line_items: sendData,
     mode: 'payment',
