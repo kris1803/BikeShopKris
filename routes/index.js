@@ -27,17 +27,19 @@ router.get('/', function(req, res, next) {
 });
 // get basket page
 router.get('/shop', function(req, res, next) {
-  var found = false;
-  var qty = parseInt(req.query.qty);
-  req.session.dataCardBike.forEach(element => {
-    if(req.query.name === element.name) {
-      element.qty += 1;
-      found = true;
+  if (req.query.name) {
+    var found = false;
+    var qty = parseInt(req.query.qty);
+    req.session.dataCardBike.forEach(element => {
+      if(req.query.name === element.name) {
+        element.qty += 1;
+        found = true;
+      }
+    });
+    if (found === false) {
+      req.session.dataCardBike.push({ name: req.query.name , url:req.query.url, qty: qty, price: req.query.price, priceid:req.query.priceid });
     }
-  });
-  if (found === false) {
-    req.session.dataCardBike.push({ name: req.query.name , url:req.query.url, qty: qty, price: req.query.price, priceid:req.query.priceid });
-  }
+  } 
   res.render('shop', {dataCardBike: req.session.dataCardBike});
 });
 // delete item from basket
@@ -64,6 +66,8 @@ router.post('/create-checkout-session', async (req, res) => {
     success_url: `${YOUR_DOMAIN}/success`,
     cancel_url: `${YOUR_DOMAIN}/cancel`,
   });
+  console.log('New order! :')
+  console.log(session);
 
   res.redirect(303, session.url);
 });

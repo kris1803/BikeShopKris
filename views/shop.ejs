@@ -9,11 +9,12 @@
   <title>BikeShop - Shop</title>
   <script src="https://kit.fontawesome.com/a41e9403cf.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="./stylesheets/style.css">
 </head>
 <body>
   <!-- header -->
   <nav class="navbar navbar-light bg-dark">
-    <a class="navbar" href="./">
+    <a class="navbar text-decoration-none text-white" href="./">
       <img src="./images/bike-logo.svg" width="50" height="50" class="logo" alt="">
       The Bike Shop Experience
     </a>
@@ -25,7 +26,7 @@
     </ol>
   </nav>
 
-  <h1 class="text-center">Basket</h1>
+  <h1 class="text-center">Cart</h1>
   
   <div class="container">
     <table class="table">
@@ -42,7 +43,7 @@
       </thead>
       <tbody>
         <% var totalCmd = 0; %>
-        <% if(dataCardBike.length ===0 ) {%>
+        <% if(dataCardBike.length ===0 || !dataCardBike) {%>
           <tr><th>
             <p class="text-warning"><em>No article in the basket</em></p>
           </th></tr>
