@@ -29,6 +29,7 @@
         <img src="<%= bikes[i].url %>" class="card-img-top" alt="...">
         <div class="card-body text-center">
           <h5 class="card-title"><%= bikes[i].name %></h5>
+          <p class="card-text  fst-italic"><%= bikes[i].desc %></p>
           <p class="card-text"><%= bikes[i].price %> €</p>
           <a href="./shop?name=<%= bikes[i].name %>&price=<%= bikes[i].price %>&url=<%= bikes[i].url %>&qty=1&priceid=<%= bikes[i].priceid %>" class="btn btn-outline-primary">Buy</a>
         </div>

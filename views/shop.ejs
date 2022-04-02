@@ -70,9 +70,11 @@
     <div class="row d-flex justify-content-end">
       <div class="col-12 d-flex justify-content-end">
         <p class="mx-3">Total: <%= totalCmd %> €</p>
+        <% if(dataCardBike && dataCardBike.length !==0) {%> 
         <form method="POST" action="/create-checkout-session">
           <button id="checkout-button" class="btn btn-primary" type="submit">Checkout</button>
         </form>
+        <% } %> 
       </div>
     </div>
   </div>
