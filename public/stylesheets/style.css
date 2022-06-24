@@ -5,7 +5,7 @@ body{
 }
 
 #picture-header {
-  background-image: url('../images/bike-background.jpg');
+  background-image: url('../images/bike-background.webp');
   background-size: cover;
   background-position: center;
   height: 150px;
@@ -17,4 +17,8 @@ body{
 }
 .basket-img{
   width: 170px;
+}
+
+footer {
+  margin-top: auto;
 }

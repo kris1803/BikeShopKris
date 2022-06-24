@@ -2,21 +2,23 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-  <link rel="stylesheet" href="./stylesheets/style.css">
+  <meta name="title" content="Bike shop experience (fictional)" >
+  <meta name="description" content="We sell only best quality city bikes for everyone. With 2 years warranty." >
+  <meta name="og:title" content="Bike shop experience (fictional)" >
+  <meta name="og:description" content="We sell only best quality city bikes for everyone. With 2 years warranty." >
+  <meta name="og:image" content="/images/site_screenshot.png" >
+  <meta name="og:url" content="https://bikeshopkris.herokuapp.com/" >
+  <meta name="og:type" content="website" >
+  <meta name="og:locale" content="en_US" >
+  
+  <%- include("./components/commonHead") %>
+  
   <title>BikeShop - Home</title>
   <script src="https://kit.fontawesome.com/a41e9403cf.js" crossorigin="anonymous"></script>
 </head>
-<body>
-  <nav class="navbar navbar-light bg-dark d-flex justify-content-around">
-    <a class="navbar text-decoration-none text-white" href="./">
-      <img src="./images/bike-logo.svg" width="50" height="50" class="logo" alt="">
-      The Bike Shop Experience
-    </a>
-    <a href="/shop" class="btn btn-outlined-primary bg-white">Cart</a>
-  </nav>
+
+<body class="min-vh-100 d-flex flex-column">
+  <%- include("./components/navbar") %>
   <div id="picture-header">
     <!--  div with image background -->
   </div>
@@ -37,6 +39,8 @@
       <% } %>
     </div>
   </div>
+
+  <%- include('./components/footer') %>
 
   <!-- Scripts --------------------------------------------->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
