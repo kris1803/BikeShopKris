@@ -13,6 +13,11 @@ To start put your stripe api key in a ".env" file in the root firectory of this 
 STRIPE_API_KEY=example_api_key_1234
 ```
 
-and then run these commands (with NodeJs installed on device): npm install , npm start
+and then run these commands (with NodeJs installed on device):
+
+```bash
+npm install
+npm start
+```
 
 ![alt text](./public/images/site_screenshot.png?raw=true "Site screenshot at 24/06/2022.")
