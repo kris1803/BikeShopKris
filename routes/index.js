@@ -4,7 +4,7 @@ const STRIPE_API_KEY = process.env.STRIPE_API_KEY;
 const stripe = require('stripe')(STRIPE_API_KEY);
 
 let YOUR_DOMAIN = '';
-let urlRead = false;
+
 dataBike = [
   {name: 'BIK045',  url: 'images/bike-1.jpg', price: 679, priceid: 'price_1KjfPyDKE8PPQdZ127udQcVo', desc:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam assumenda veritatis officiis atque consequuntur ducimus quasi neque, libero enim illum!' },
   {name: 'ZOOK07',  url: 'images/bike-2.jpg', price: 999, priceid:'price_1KjfQoDKE8PPQdZ1pwDqK4Gs', desc:'Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam assumenda veritatis officiis atque consequuntur ducimus quasi neque, libero enim illum!' },
@@ -15,15 +15,15 @@ dataBike = [
 ]
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', function(req, res) {
   if (typeof req.session.dataCardBike === 'undefined') {
     req.session.dataCardBike = [];
   }
   //récuperer l'url complète une fois
-  if (urlRead === false) {
+  if (YOUR_DOMAIN.length < 1) {
     YOUR_DOMAIN = req.protocol + '://' + req.get('host');
-    urlRead = true;
   }
+  
   res.render('index', {bikes: dataBike});
 });
 // get basket page
@@ -57,20 +57,26 @@ router.post('/update-shop', function(req, res) {
 })
 // stripe redirection
 router.post('/create-checkout-session', async (req, res) => {
-  let sendData = [];
-  for (let i = 0; i <req.session.dataCardBike.length; i++) {
-    sendData.push({ price: req.session.dataCardBike[i].priceid, quantity: req.session.dataCardBike[i].qty});
+  try {
+    let sendData = [];
+    for (let i = 0; i <req.session.dataCardBike.length; i++) {
+      sendData.push({ price: req.session.dataCardBike[i].priceid, quantity: req.session.dataCardBike[i].qty});
+    }
+    const session = await stripe.checkout.sessions.create({
+      line_items: sendData,
+      mode: 'payment',
+      success_url: `${YOUR_DOMAIN}/success`,
+      cancel_url: `${YOUR_DOMAIN}/cancel`,
+    });
+    console.log('New order! :')
+    console.log(session);
+  
+    res.redirect(303, session.url);
+  } catch (err) {
+    console.log(err);
+    res.redirect(303, '/cancel');
   }
-  const session = await stripe.checkout.sessions.create({
-    line_items: sendData,
-    mode: 'payment',
-    success_url: `${YOUR_DOMAIN}/success`,
-    cancel_url: `${YOUR_DOMAIN}/cancel`,
-  });
-  console.log('New order! :')
-  console.log(session);
-
-  res.redirect(303, session.url);
+  
 });
 router.get('/success', function(req, res) {
   dataCardBike = [];

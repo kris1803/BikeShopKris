@@ -43,55 +43,72 @@
             <th scope="col">Model</th>
             <th scope="col">Quantity</th>
             <th scope="col">Price</th>
+            <th scope="col">Shipping</th>
             <th scope="col">Total</th>
             <th scope="col">Remove</th>
           </tr>
         </thead>
-        <tbody>
-          <% var totalCmd=0; %>
-            <% for(var i=0; i < dataCardBike.length; i++) { totalCmd +=dataCardBike[i].qty*dataCardBike[i].price ;%>
-              <tr class="bg-light">
-                <th scope="row">
-                  <%= i+1 %>
-                </th>
-                <td><img src="<%= dataCardBike[i].url %>" class="img-thumbnail" style="max-width: 120px;"></td>
-                <td>
-                  <%= dataCardBike[i].name %>
-                </td>
-                <td>
-                  <form method="post" action="/update-shop">
-                    <input type="hidden" name="id" value="<%= i %>" />
-                    <input type="text" name="qty" value="<%= dataCardBike[i].qty %>">
-                    <button class="btn btn-outlined-primary"><i class="fa-solid fa-arrows-rotate"></i></button>
-                  </form>
-                </td>
-                <td>
-                  <%= dataCardBike[i].price %> €
-                </td>
-                <td>
-                  <%= dataCardBike[i].qty*dataCardBike[i].price %> €
-                </td>
-                <td><a
-                    href="/delete-shop?name=<%= dataCardBike[i].name %>&qty=<%= dataCardBike[i].qty %>&id=<%= i %>"><i
-                      class="fa-solid fa-trash"></i></a></td>
-              </tr>
-              <% } %>
-        </tbody>
+        <% // calculer le total du panier et la somme des frais de port
+          let total=0; 
+          let totalShipping=0; 
+          for (let i=0; i < dataCardBike.length; i++) { 
+            totalShipping +=dataCardBike[i].qty*30;
+            total+=dataCardBike[i].qty*dataCardBike[i].price; 
+          } 
+          if (total>= 2000 && total < 4000) {
+            totalShipping=totalShipping/2; } else if (total>= 4000) {
+            totalShipping = 0;
+          }
+          %>
+            <tbody>
+              <% var totalCmd=0; %>
+                <% for(var i=0; i < dataCardBike.length; i++) {%>
+                  <tr class="bg-light">
+                    <th scope="row">
+                      <%= i+1 %>
+                    </th>
+                    <td><img src="<%= dataCardBike[i].url %>" class="img-thumbnail" style="max-width: 120px;"></td>
+                    <td>
+                      <%= dataCardBike[i].name %>
+                    </td>
+                    <td>
+                      <form method="post" action="/update-shop">
+                        <input type="hidden" name="id" value="<%= i %>" />
+                        <input type="text" name="qty" value="<%= dataCardBike[i].qty %>">
+                        <button class="btn btn-outlined-primary"><i class="fa-solid fa-arrows-rotate"></i></button>
+                      </form>
+                    </td>
+                    <td>
+                      <%= dataCardBike[i].price %> €
+                    </td>
+                    <td>
+                      <%= dataCardBike[i].qty*30 %> €
+                    </td>
+                    <td>
+                      <%= dataCardBike[i].qty*dataCardBike[i].price %> €
+                    </td>
+                    <td><a
+                        href="/delete-shop?name=<%= dataCardBike[i].name %>&qty=<%= dataCardBike[i].qty %>&id=<%= i %>"><i
+                          class="fa-solid fa-trash"></i></a></td>
+                  </tr>
+                  <% } %>
+            </tbody>
       </table>
     </div>
     <% if(!dataCardBike || dataCardBike.length===0) {%>
       <h6 class="text-warning fw-bold"><em>No article in the basket</em></h6>
     <% } %>
-      <div class="row d-flex justify-content-end">
+        <div class="row d-flex justify-content-end">
           <div class="col-12 d-flex justify-content-end">
-            <p class="mx-3">Total: <%= totalCmd %> €</p>
+            <p>Shipping costs (discounts included): <%= totalShipping %> €</p>
+            <p class="mx-3">Total: <%= total %> €</p>
             <% if(dataCardBike && dataCardBike.length !==0) {%>
               <form method="POST" action="/create-checkout-session">
                 <button id="checkout-button" class="btn btn-primary" type="submit">Checkout</button>
               </form>
               <% } %>
           </div>
-      </div>
+        </div>
   </div>
 
   <!-- scripts -->
