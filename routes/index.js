@@ -1,6 +1,7 @@
-var express = require('express');
-var router = express.Router();
-const stripe = require('stripe')('sk_test_51KjeyfDKE8PPQdZ15ZpsMHLZRaIyFLglTIigOqDtxqLPzKXBvYJWokgg8DnrTNQSPAh9Ak6a4WXKpelnBhR3wQvn002mn5hAKU')
+let express = require('express');
+let router = express.Router();
+const STRIPE_API_KEY = process.env.STRIPE_API_KEY;
+const stripe = require('stripe')(STRIPE_API_KEY);
 
 let YOUR_DOMAIN = '';
 let urlRead = false;

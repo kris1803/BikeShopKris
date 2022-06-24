@@ -1,6 +1,12 @@
-Bike shop project for testing purposes
+# Bike shop project (fictional)
 
-Using third part payment system api
+Using third part payment system api, Stripe
+
+Deployed at this address : <https://bikeshopkris.herokuapp.com/>
 
 Shopping cart editing
-Mostly back-end project on NodeJS with express-generator with EJS
+Full stack Nodejs project with MVC architecture and SSR with EJS, based on Express framework.
+
+To start put your stripe api key in a ".env" file in the root firectory of this project, like this
+STRIPE_API_KEY=example_api_key_1234
+and then run these commands (with NodeJs installed on device): npm install , npm start
