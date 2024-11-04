@@ -1,4 +1,4 @@
-# Bike shop project (fictional)
+# Bike shop project (fictional) - Studies small project
 
 Using third part payment system api, Stripe
 
